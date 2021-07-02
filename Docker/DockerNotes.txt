@@ -1,0 +1,104 @@
+
+
+
+Linux
+
+pwd = print working directory
+ls = list
+-l flag = longlisting
+cd = change directory
+relative and absolute path
+absolute: /bin (from root directory)
+relative: bin (pwd)
+
+mkdir
+touch
+mv
+rm
+-r = recursive
+nano
+cat
+more
+less
+head 
+tail
+
+redirect command > (for standart output, overwrites)
+>> (appends)
+< standart input
+
+grep (global regular expression print) search text
+    -i case insensitive
+    -r search recursive
+    grep -i word file.txt
+
+find (list all files and directories)
+find /path (list all files and directories starting from /path)
+    -type d or f (type, directory,file)
+    -type f -name filename.txt
+
+Command Sequence in order
+mkdir text ; cd dir ; echo hello
+with and
+mkdir text && cd dir && echo hello
+if comand type 
+mkdir text || cd dir (one or the other)
+
+Pipeline
+pass the output to a command 
+ls -bin | more (shows the more command with the output of the first command)
+
+Enter in cmd 
+\
+mkdir text ;\
+cd dir ;\ 
+echo hello
+
+Print environment variables Linux
+printenv [varName]
+echo $[varName]
+
+Add environment variables (to an specific terminal session)
+export VARIABLE=edgar
+
+Processes
+ps 
+kill
+
+Users
+
+useradd  adduser*
+usermod -g (groups)
+userdel
+/etc/passwd
+
+groupadd  adduser*
+groupmod
+groupdel
+
+/etc/group
+
+chmod u g o (change permissions)
+chmod u+x [file] (add)
+chmod u-x [file] (remove)
+
+
+Interactive Container
+flag:
+    -it
+
+docker start -it [container id]
+docker stop a80
+
+Dockerfile instructions
+
+FROM (base image)
+WORKDIR (working directory)
+COPY (copying files or dir )
+ADD 
+RUN (excute os commands)
+ENV (setting environment variables)
+EXPOSE (telling docker the container is starting in a specific port)
+USER (user to run the app)
+CMD (command to execute)
+ENTRYPOINT

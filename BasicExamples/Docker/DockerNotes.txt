@@ -170,3 +170,8 @@ docker cp [source] [destination]
 docker cp e36adumv32:/app/hello.txt .
 Back
 docker cp hello.txt e36adumv32:/app
+
+
+Remove all containers and images in one go
+docker container rm -f $(docker container ls -aq)
+docker image rm -f $(docker image ls -aq)

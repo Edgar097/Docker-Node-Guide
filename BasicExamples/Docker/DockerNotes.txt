@@ -1,0 +1,172 @@
+
+Linux
+
+pwd = print working directory
+ls = list
+-l flag = longlisting
+cd = change directory
+relative and absolute path
+absolute: /bin (from root directory)
+relative: bin (pwd)
+
+mkdir
+touch
+mv
+rm
+-r = recursive
+nano
+cat
+more
+less
+head 
+tail
+
+redirect command > (for standart output, overwrites)
+>> (appends)
+< standart input
+
+grep (global regular expression print) search text
+    -i case insensitive
+    -r search recursive
+    grep -i word file.txt
+
+find (list all files and directories)
+find /path (list all files and directories starting from /path)
+    -type d or f (type, directory,file)
+    -type f -name filename.txt
+
+Command Sequence in order
+mkdir text ; cd dir ; echo hello
+with and
+mkdir text && cd dir && echo hello
+if comand type 
+mkdir text || cd dir (one or the other)
+
+Pipeline
+pass the output to a command 
+ls -bin | more (shows the more command with the output of the first command)
+
+Enter in cmd 
+\
+mkdir text ;\
+cd dir ;\ 
+echo hello
+
+Print environment variables Linux
+printenv [varName]
+echo $[varName]
+
+Add environment variables (to an specific terminal session)
+export VARIABLE=edgar
+
+Processes
+ps 
+kill
+
+Users
+
+useradd  adduser*
+usermod -g (groups)
+userdel
+/etc/passwd
+
+groupadd  adduser*
+groupmod
+groupdel
+
+/etc/group
+
+chmod u g o (change permissions)
+chmod u+x [file] (add)
+chmod u-x [file] (remove)
+
+
+Interactive Container
+flag:
+    -it
+
+docker start -it [container id]
+docker stop a80
+
+Dockerfile instructions
+
+FROM (base image)
+WORKDIR (working directory)
+COPY (copying files or dir )
+ADD 
+RUN (excute os commands)
+ENV (setting environment variables)
+EXPOSE (telling docker the container is starting in a specific port)
+USER (user to run the app)
+CMD (command to execute)
+ENTRYPOINT
+
+docker images
+docker history [container name]
+Access the layers of the image
+-------
+* Always structure your Dockerfile
+From stable instructions 
+to 
+Changing instructions
+-------
+
+docker build -t react-app:[tag] .
+
+Copy image to another image, control latest images
+docker image tag b0f react-app:[tag]
+
+Docker push image to dockerhub
+docker push edgar097/[appName]:[tag]
+It's important to specify the tag, or docker will get the latest
+Needs to be the same repository name created in the dockerhub
+
+Save Docker Images 
+-o = output / go to a file instead of STDOUT
+docker image save -o react-app.tar react-app:2
+Saves all the layers of the image, you can get in those layers and check what they have
+
+Load Saved Images
+-i = input / decompress file
+docker image load -i react-app.tar
+
+Docker run
+docker run [image name or ID] (Start a new Container)
+Detached Docker run
+docker run -d [image name or ID]
+docker run -d --name [name] [image name or ID]
+Publishing Ports
+docker run -d -p 80:3000 --name [name] [image name or ID] // host:container  [0.0.0.0:80->3000/tcp, :::80->3000/tcp]
+with Volumes
+docker run -d -p 80:3000 -v app-data:/app/data --name [name] [image name or ID] // volume:pathOnTheVolume if they don't exit it's automatically created
+volume is memory in the computer
+Run in the current working directory so you can make changes in execution time
+docker run -d -p 80:3000 -v $(pwd):/app/data --name [name] [image name or ID]
+
+Check Container or Processes
+and logs
+docker ps
+
+docker logs -f [container name or ID]
+tags:
+-f = follow the outout
+-t = timestamp
+
+Execute a command in a docker container
+docker exec [container name or id] [command]
+docker exec -it react-app sh 
+/ $
+
+STOP containers
+docker stop [container name or ID]
+docker start [container name or ID] (Starts an already created container)
+
+Conatiner rm
+docker rm [container name or ID]
+docker rm -f [container name or ID] //-f=force  
+
+Copying files in a container
+docker cp [source] [destination]
+docker cp e36adumv32:/app/hello.txt .
+Back
+docker cp hello.txt e36adumv32:/app

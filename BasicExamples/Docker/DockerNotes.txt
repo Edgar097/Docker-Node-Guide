@@ -80,6 +80,8 @@ chmod u g o (change permissions)
 chmod u+x [file] (add)
 chmod u-x [file] (remove)
 
+chmod [user]:[group] /app //change owner of a directory
+chmod app:app /app
 
 Interactive Container
 flag:
@@ -112,6 +114,8 @@ Changing instructions
 -------
 
 docker build -t react-app:[tag] .
+Production:
+docker build -t fullapp_web_opt -f Dockerfile.prod .
 
 Copy image to another image, control latest images
 docker image tag b0f react-app:[tag]
@@ -152,9 +156,11 @@ tags:
 -f = follow the outout
 -t = timestamp
 
+
 Execute a command in a docker container
 docker exec [container name or id] [command]
 docker exec -it react-app sh 
+docker exec -it -u user react-app sh 
 / $
 
 STOP containers
@@ -181,6 +187,13 @@ docker-compose build --no-cache
 docker-compose up --build -d
 docker-compose down
 docker-compose ps (the containers of an app)
+docker-compose -f docker-compose.prod.yml build
+
+https://docs.docker.com/compose/compose-file/compose-file-v3/#restart_policy
+
+Sharing files
+volumes:
+    - ./backend:/appName
 
 YAML
 list
@@ -188,3 +201,25 @@ list
 -
 -
 Identation means hierarchy
+
+Wait for it sh : https://github.com/vishnubob/wait-for-it
+https://medium.com/@krishnaregmi/wait-for-it-docker-compose-f0bac30f3357
+
+Docker Machine
+https://github.com/docker/machine/releases
+
+Docker Machine Drivers
+https://docs.docker.com/machine/drivers/
+https://www.digitalocean.com/community/questions/unable-to-verify-the-docker-daemon-is-listening
+command: 
+docker-machine create \
+    --driver digitalocean \
+    --digitalocean-image ubuntu-18-04-x64 \
+    --engine-install-url "https://releases.rancher.com/install-docker/19.03.9.sh" \
+    --digitalocean-access-token=367cfccd9bff9869bce56d621494f240ea6716793e3504e544743d214f7b995f \
+    fullappTest
+
+Access the droplet
+docker-machine ssh [name]
+docker-machine env [name]
+eval $(docker-machine env [name]) // Sets up the env variables to communicate docker to the server

@@ -175,3 +175,16 @@ docker cp hello.txt e36adumv32:/app
 Remove all containers and images in one go
 docker container rm -f $(docker container ls -aq)
 docker image rm -f $(docker image ls -aq)
+
+Remember cache problems
+docker-compose build --no-cache
+docker-compose up --build -d
+docker-compose down
+docker-compose ps (the containers of an app)
+
+YAML
+list
+- 
+-
+-
+Identation means hierarchy
